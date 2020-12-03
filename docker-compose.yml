@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  users:
+    build:
+      context: ./backendpython
+      dockerfile: Dockerfile
+    volumes:
+      - './backendpython:/usr/src/app'
+    ports:
+      - 5001:5000
+ 
