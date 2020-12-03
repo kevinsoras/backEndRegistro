@@ -11,18 +11,16 @@ CORS(app)
 cors=CORS(app,resources={
     r"/*":{
         "origins":"*"
-
     }
 })
 
 @app.route('/',methods=['POST'])
 def agregarinteresado():
-    
+
     nombres = request.get_json()["nombres"]
     correo = request.get_json()["correo"]
     #return request.json
     return validardatos(nombres,correo)
-    
 
 def validardatos(nombres,correo):
     if not len(nombres):
