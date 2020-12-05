@@ -15,43 +15,27 @@ cors=CORS(app,resources={
 })
 
 @app.route('/',methods=['POST'])
-def agregarinteresado():
-
+def agregarInteresado():
     nombres = request.get_json()["nombres"]
     correo = request.get_json()["correo"]
-    #return request.json
-    return validardatos(nombres,correo)
+    return validarDatos(nombres,correo)
 
-def validardatos(nombres,correo):
+def validarDatos(nombres, correo):
     if not len(nombres):
-        return jsonify(
-                nombres=nombres,
-                correo=correo,
-                status=400,
-                mensaje="Falta llenar los nombres"
-            )
+        return {"nombres": nombres, "correo": correo,
+                "status": 400, "mensaje": "Ingrese su nombre"}
+
     if not len(correo):
-        return jsonify(
-                nombres=nombres,
-                correo=correo,
-                status=400,
-                mensaje="Falta llenar el correo"
+        return {"nombres": nombres, "correo": correo,
+                "status": 400, "mensaje": "Ingrese su correo"}
 
-            )
-    enviarcorreointeresado(nombres,correo)
-    return jsonify(
-                nombres=nombres,
-                correo=correo,
-                status=200,
-                mensaje="Gracias por registrarte"
+    #enviarCorreo(nombres,correo)
 
-            )
-def enviarcorreointeresado(nombres,correo):
+def enviarCorreo(nombres,correo):
     crearmensaje(nombres,correo)
-
     mensaje = MIMEMultipart("plain")
     mensaje["From"]="360aplicacion@gmail.com"
-    mensaje["To"]= "kevinsoras@upeu.edu.pe"
+    mensaje["To"]= "joseguzman@upeu.edu.pe"
     mensaje["Subject"] ="Correo de interesado - Moon Team"
     adjunto = MIMEBase("application","octect-stream")
     adjunto.set_payload(open("interesado.txt","rb").read())
@@ -64,6 +48,8 @@ def enviarcorreointeresado(nombres,correo):
     smtp.login("360aplicacion@gmail.com","360aplicacion123")
     smtp.sendmail("360aplicacion@gmail.com","kevinsoras@upeu.edu.pe",mensaje.as_string())
     smtp.quit()
+    return {"nombres": nombres, "correo": correo,
+            "status": 200, "mensaje": "Gracias por registrarse"}
 
 def crearmensaje(nombres,correo):
     now = datetime.now()
