@@ -30,6 +30,8 @@ def validarDatos(nombres, correo):
                 "status": 400, "mensaje": "Ingrese su correo"}
 
     #enviarCorreo(nombres,correo)
+    return {"nombres": nombres, "correo": correo,
+            "status": 200, "mensaje": "Gracias por registrarse"}
 
 def enviarCorreo(nombres,correo):
     crearmensaje(nombres,correo)
@@ -48,8 +50,6 @@ def enviarCorreo(nombres,correo):
     smtp.login("360aplicacion@gmail.com","360aplicacion123")
     smtp.sendmail("360aplicacion@gmail.com","kevinsoras@upeu.edu.pe",mensaje.as_string())
     smtp.quit()
-    return {"nombres": nombres, "correo": correo,
-            "status": 200, "mensaje": "Gracias por registrarse"}
 
 def crearmensaje(nombres,correo):
     now = datetime.now()
