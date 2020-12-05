@@ -20,7 +20,7 @@ class TestApp(unittest.TestCase):
 
     def test_validated_send_mail(self):
         json_test = {"nombres": "jose", "correo": "",
-                    "status": 400, "mensaje": "Ingrese su correo"}
+                    "status": 400, "mensaje": "Ingrese su correo12"}
         self.assertDictEqual(app.validarDatos("jose", ""), json_test)
 
     if __name__ == "__main__":
